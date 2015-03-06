@@ -76,20 +76,55 @@
 	 * @param mixed extend
 	 * @return mixed
 	 */
-
+	 
+  function is_equal(first,second){
+    if(typeOf(first)!=typeOf(second)){
+      return false;
+    }
+    if(typeOf(first)==="array"){
+      for(i=0;i<Math.min(first.length,second.length);i++){
+        if(!is_equal(first[i],second[i])){
+          return false;
+        }
+      }
+      return true;
+    }
+    else if(typeOf(first)==="object"){
+      for(var key in first){
+        if(!is_equal(first[key],second[key])){
+          return false;
+        }
+      }
+      return true;
+    }else{
+      return first==second;
+    }
+  }
 	function merge_recursive(base, extend) {
-
+    if (typeOf(base) == 'array' && typeOf(extend)=='array'){
+      if(is_equal(base[0],extend[0])){
+        extend=extend;
+      }
+      else{
+        extend=base.concat(extend);
+      }
+    }
+    
 		if (typeOf(base) !== 'object')
 
 			return extend;
-
+    
 		for (var key in extend) {
 
 			if (typeOf(base[key]) === 'object' && typeOf(extend[key]) === 'object') {
 
 				base[key] = merge_recursive(base[key], extend[key]);
 
-			} else {
+			} else if(typeOf(base[key])== 'array' && typeOf(extend[key])== 'array'){
+  			base[key]=merge_recursive(base[key],extend[key]);
+
+			}
+			 else {
 
 				base[key] = extend[key];
 

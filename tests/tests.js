@@ -129,7 +129,7 @@ test('merge.recursive', function() {
 
 		merge.recursive({ a: { b: [1, 2, 3], c: 1 } }, { a : { b: ['a'] }}),
 
-		{ a: { b: ['a'], c: 1 } }
+		{ a: { b: [1, 2, 3, 'a'], c: 1 } }
 
 	);
 
@@ -175,7 +175,7 @@ test('merge.recursive (clone)', function() {
 
 		merge.recursive(true, input, { a : { b: ['a'] }}),
 
-		{ a: { b: ['a'], c: 1 } }
+		{ a: { b: [1, 2, 3, 'a'], c: 1 } }
 
 	);
 
